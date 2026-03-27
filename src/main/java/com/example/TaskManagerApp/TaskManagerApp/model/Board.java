@@ -2,7 +2,6 @@ package com.example.TaskManagerApp.TaskManagerApp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -15,11 +14,6 @@ public class Board {
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
-
     @OneToMany(mappedBy = "board")
     @JsonIgnore
     private List<BoardMembers> boardMembers;
@@ -27,6 +21,8 @@ public class Board {
     @OneToMany(mappedBy = "board")
     @JsonIgnore
     private List<Task> tasks;
+
+    protected Board(){}
 
     public Board(String description, Integer id) {
         this.description = description;
@@ -47,14 +43,6 @@ public class Board {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public List<BoardMembers> getBoardMembers() {

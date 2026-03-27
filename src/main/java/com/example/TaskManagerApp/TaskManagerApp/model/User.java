@@ -27,10 +27,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private List<Board> boards;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
     private List<BoardMembers> boardMembers;
 
     @OneToMany(mappedBy = "user")
@@ -77,14 +73,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public List<Board> getBoards() {
-        return boards;
-    }
-
-    public void setBoards(List<Board> boards) {
-        this.boards = boards;
     }
 
     public List<BoardMembers> getBoardMembers() {

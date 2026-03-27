@@ -1,5 +1,6 @@
 package com.example.TaskManagerApp.TaskManagerApp.controller;
 
+import com.example.TaskManagerApp.TaskManagerApp.model.Board;
 import com.example.TaskManagerApp.TaskManagerApp.model.User;
 import com.example.TaskManagerApp.TaskManagerApp.service.UserService;
 import jakarta.validation.Valid;
@@ -28,13 +29,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User findUserById(@PathVariable int id){
-        return userService.findUserById(id);
+    public User getUserById(@PathVariable int id){
+        return userService.retrieveUserById(id);
     }
 
     @DeleteMapping("/{id}")
-    public User deleteUserById(@PathVariable int id){
+    public void deleteUserById(@PathVariable int id){
         userService.deleteUserById(id);
     }
-
 }

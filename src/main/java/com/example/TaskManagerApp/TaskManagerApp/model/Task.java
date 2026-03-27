@@ -27,6 +27,8 @@ public class Task {
     @JsonIgnore
     private Board board;
 
+    protected Task(){}
+
     public Task(String description, Integer id, TaskStatus status, String title) {
         this.description = description;
         this.id = id;
