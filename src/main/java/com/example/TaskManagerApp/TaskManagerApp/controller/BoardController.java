@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class BoardController {
 
-    private BoardService boardService;
+    private final BoardService boardService;
 
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
@@ -28,8 +28,12 @@ public class BoardController {
     }
 
     @GetMapping("api/boards/{id}/members")
-    public List<User> getAllMembersForBoard(@PathVariable int id){
+    public List<BoardService.MemberResponse> getAllMembersForBoard(@PathVariable int id){
         return boardService.getAllMembersForBoard(id);
     }
 
+    @PostMapping("api/boards/{boardId}/members")
+    public void addMemberToBoard(@PathVariable int boardId, @RequestParam int userId){
+        boardService.addMemberToBoard(userId, boardId);
+    }
 }

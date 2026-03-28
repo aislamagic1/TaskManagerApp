@@ -44,17 +44,46 @@ public class BoardService {
         User user = userService.findUserById(id);
 
         boardRepository.save(board);
-        BoardMembers newMember = new BoardMembers(user, board, BoardRole.MEMBER);
+        BoardMembers newMember = new BoardMembers(user, board, BoardRole.OWNER);
         boardMembersRepository.save(newMember);
     }
 
-    public List<User> getAllMembersForBoard(int id){
-        List<BoardMembers> boardMembers = boardRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Board not found"))
-                .getBoardMembers();
-        List<User> usersForBoard = new ArrayList<>();
+    public static class MemberResponse {
+        public Integer userId;
+        public String username;
+        public String role;
 
-        boardMembers.forEach(boardMember -> usersForBoard.add(userService.findUserById(boardMember.getUser().getId())));
-        return usersForBoard;
+        public MemberResponse(Integer userId, String username, String role) {
+            this.userId = userId;
+            this.username = username;
+            this.role = role;
+        }
     }
+
+    public List<MemberResponse> getAllMembersForBoard(int id){
+        List<BoardMembers> boardMembers = this.findBoardById(id).getBoardMembers();
+
+        return boardMembers.stream()
+                .map(member -> new MemberResponse(
+                        member.getUser().getId(),
+                        member.getUser().getUsername(),
+                        member.getRole().name()
+                ))
+                .toList();
+    }
+
+    public void addMemberToBoard(int userId, int boardId){
+        User user = userService.findUserById(userId);
+        Board board = this.findBoardById(boardId);
+
+        boolean alreadyMember = boardMembersRepository.existsByBoardIdAndUserId(boardId, userId);
+
+        if (alreadyMember) {
+            throw new RuntimeException("User already a member");
+        }
+
+        boardMembersRepository.save(new BoardMembers(user, board, BoardRole.MEMBER));
+    }
+
+
 }
