@@ -22,4 +22,16 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ObjectAlreadyExistsException.class)
+    public ResponseEntity<Object> handleObjectAlreadyExists(ObjectAlreadyExistsException ex) {
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", 404);
+        body.put("error", "Object already exists");
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
 }

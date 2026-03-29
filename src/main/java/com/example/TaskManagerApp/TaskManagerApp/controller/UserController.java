@@ -1,6 +1,5 @@
 package com.example.TaskManagerApp.TaskManagerApp.controller;
 
-import com.example.TaskManagerApp.TaskManagerApp.model.Board;
 import com.example.TaskManagerApp.TaskManagerApp.model.User;
 import com.example.TaskManagerApp.TaskManagerApp.service.UserService;
 import jakarta.validation.Valid;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;

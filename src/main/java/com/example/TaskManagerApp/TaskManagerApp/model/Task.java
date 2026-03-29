@@ -12,7 +12,10 @@ public class Task {
     private Integer id;
 
     private String title;
+
     private String description;
+
+    private String creator;
 
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
@@ -29,11 +32,12 @@ public class Task {
 
     protected Task(){}
 
-    public Task(String description, Integer id, TaskStatus status, String title) {
+    public Task(String description, Integer id, TaskStatus status, String title, String creator) {
         this.description = description;
         this.id = id;
         this.status = status;
         this.title = title;
+        this.creator = creator;
     }
 
     public Board getBoard() {
@@ -84,10 +88,19 @@ public class Task {
         this.user = user;
     }
 
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
-                "description='" + description + '\'' +
+                "creator='" + creator + '\'' +
+                ", description='" + description + '\'' +
                 ", id=" + id +
                 ", status=" + status +
                 ", title='" + title + '\'' +

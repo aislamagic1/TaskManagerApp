@@ -1,6 +1,7 @@
 package com.example.TaskManagerApp.TaskManagerApp.service;
 
 import com.example.TaskManagerApp.TaskManagerApp.enums.BoardRole;
+import com.example.TaskManagerApp.TaskManagerApp.exception.ObjectAlreadyExistsException;
 import com.example.TaskManagerApp.TaskManagerApp.exception.ObjectNotFoundException;
 import com.example.TaskManagerApp.TaskManagerApp.model.Board;
 import com.example.TaskManagerApp.TaskManagerApp.model.BoardMembers;
@@ -79,7 +80,7 @@ public class BoardService {
         boolean alreadyMember = boardMembersRepository.existsByBoardIdAndUserId(boardId, userId);
 
         if (alreadyMember) {
-            throw new RuntimeException("User already a member");
+            throw new ObjectAlreadyExistsException("User already a member");
         }
 
         boardMembersRepository.save(new BoardMembers(user, board, BoardRole.MEMBER));
