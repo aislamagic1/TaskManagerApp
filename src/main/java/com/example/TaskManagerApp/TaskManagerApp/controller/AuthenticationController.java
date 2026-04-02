@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -33,7 +35,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signin")
-    public String authenticateUser(@RequestBody User user){
+    public Map<String, String> authenticateUser(@RequestBody User user){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
@@ -41,7 +43,9 @@ public class AuthenticationController {
                 )
         );
         final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return jwtUtils.GenerateToken(userDetails.getUsername());
+        String token = jwtUtils.GenerateToken(userDetails.getUsername());
+
+        return Map.of("token", token);
     }
 
 
