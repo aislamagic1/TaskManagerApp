@@ -14,12 +14,19 @@ function RegisterForm() {
 
     const navigate = useNavigate();
 
+    const validateEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     async function handleRegister(){
         setError("");
         setSuccess("");
 
         if (!username || !email || !password) {
             setError("All fields are required");
+            return;
+        }
+
+        if (validateEmail.test(String(email).toLowerCase)){
+            setError("Invalid email address!");
             return;
         }
 
