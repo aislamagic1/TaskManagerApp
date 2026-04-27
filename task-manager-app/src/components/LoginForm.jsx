@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { login } from "../api/authApi";
+import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
 function LoginForm(){
@@ -7,6 +8,7 @@ function LoginForm(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
 
     async function handleLogin(){
@@ -20,24 +22,24 @@ function LoginForm(){
     }
 
     return (
-        <div className="login-container">
-            <div className="login-card">
+        <div className="auth-container">
+            <div className="auth-card">
                 <h1>Login</h1>
 
                 {error && <p className="error">{error}</p>}
 
-                <div className="login-form">
+                <div className="auth-form">
                     <label>Username</label>
                     <input 
                         type="text"
                         name="username" 
                         value={username} 
                         onChange={(e) => setUsername(e.target.value)} 
-                        placeholder="Enter your useraname"
+                        placeholder="Enter your username"
                     />
                 </div>
 
-                <div className="login-form">
+                <div className="auth-form">
                     <label>Password</label>
                     <input type="password" 
                         name="password" 
@@ -48,14 +50,13 @@ function LoginForm(){
                 </div>
                 
                 
-                <button className="login-button" type="button" name="login" onClick={handleLogin}>
+                <button className="auth-button" type="button" name="login" onClick={handleLogin}>
                     Login
                 </button>
                 
-
                 <p className="register-text">
                     Don't have an account?{" "}
-                    <span>
+                    <span onClick={() => navigate("/register")}>
                         Register
                     </span>
                 </p>

@@ -12,6 +12,10 @@ export const login = async (username, password) => {
 
 };
 
-export const signup = async (user) => {
-    return await apiClient.post("/auth/signup", user);
+export const signup = async (username, email, password) => {
+    return await apiClient.post("/auth/signup", {
+        user_name: username,
+        email,
+        password
+    });
 };

@@ -1,4 +1,4 @@
-.login-container {
+.auth-container {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -6,7 +6,7 @@
     background: linear-gradient(135deg, #4f46e5, #9333ea);
 }
 
-.login-card {
+.auth-card {
     background: white;
     padding: 2rem;
     border-radius: 12px;
@@ -15,22 +15,22 @@
     text-align: center;
 }
 
-.login-card h1 {
+.lauth-card h1 {
     margin-bottom: 1.5rem;
 }
 
-.login-form {
+.auth-form {
     text-align: left;
     margin-bottom: 1rem;
 }
 
-.login-form label {
+.auth-form label {
     font-size: 0.9rem;
     display: block;
     margin-bottom: 0.3rem;
 }
 
-.login-form input {
+.auth-form input {
     width: 100%;
     padding: 0.6rem;
     border-radius: 6px;
@@ -38,12 +38,12 @@
     transition: 0.2s;
 }
 
-.login-form input:focus {
+.auth-form input:focus {
     border-color: #4f46e5;
     outline: none;
 }
 
-.login-button {
+.auth-button {
     width: 100%;
     padding: 0.7rem;
     border: none;
