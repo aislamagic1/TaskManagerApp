@@ -1,4 +1,5 @@
 import './App.css';
+import HomeComponent from './components/HomeComponent';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/home" element={<HomeComponent />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
     </Router>

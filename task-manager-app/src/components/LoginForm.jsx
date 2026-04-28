@@ -15,6 +15,7 @@ function LoginForm(){
         try {
             setError("");
             await login(username, password);
+            navigate("/home");
         } catch (error) {
             setError("Invalid username or password");
             console.log(error);
