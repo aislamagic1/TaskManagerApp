@@ -8,6 +8,7 @@ import com.example.TaskManagerApp.TaskManagerApp.model.BoardMembers;
 import com.example.TaskManagerApp.TaskManagerApp.model.User;
 import com.example.TaskManagerApp.TaskManagerApp.repository.BoardMembersRepository;
 import com.example.TaskManagerApp.TaskManagerApp.repository.BoardRepository;
+import com.example.TaskManagerApp.TaskManagerApp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,16 +34,16 @@ public class BoardService {
                 .orElseThrow(() -> new ObjectNotFoundException("Board not found"));
     }
 
-    public List<Board> getBoardsForUser(int id){
-        User user = userService.findUserById(id);
+    public List<Board> getBoardsForUser(String username){
+        User user = userService.getUserRepository().findByUsername(username);
         List<Board> userBoards = new ArrayList<>();
 
         user.getBoardMembers().forEach(boardMember -> userBoards.add(this.findBoardById(boardMember.getBoard().getId())));
         return userBoards;
     }
 
-    public void addBoardForUser(int id, Board board){
-        User user = userService.findUserById(id);
+    public void addBoardForUser(String username, Board board){
+        User user = userService.getUserRepository().findByUsername(username);
 
         boardRepository.save(board);
         BoardMembers newMember = new BoardMembers(user, board, BoardRole.OWNER);
@@ -61,8 +62,8 @@ public class BoardService {
         }
     }
 
-    public List<MemberResponse> getAllMembersForBoard(int id){
-        List<BoardMembers> boardMembers = this.findBoardById(id).getBoardMembers();
+    public List<MemberResponse> getAllMembersForBoard(int boardId){
+        List<BoardMembers> boardMembers = this.findBoardById(boardId).getBoardMembers();
 
         return boardMembers.stream()
                 .map(member -> new MemberResponse(

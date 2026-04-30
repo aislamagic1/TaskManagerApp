@@ -3,6 +3,7 @@ package com.example.TaskManagerApp.TaskManagerApp.controller;
 import com.example.TaskManagerApp.TaskManagerApp.enums.TaskStatus;
 import com.example.TaskManagerApp.TaskManagerApp.model.Task;
 import com.example.TaskManagerApp.TaskManagerApp.service.TaskService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,10 @@ public class TaskController {
         taskService.createTask(boardId, userId, task);
     }
 
-    @GetMapping("/users/{userId}/tasks")
-    public List<Task> getAllTasksForUser(@PathVariable int userId){
-        return taskService.getAllTasksForUser(userId);
+    @GetMapping("/tasks")
+    public List<Task> getAllTasksForUser(Authentication authentication){
+        String username = authentication.getName();
+        return taskService.getAllTasksForUser(username);
     }
 
     @GetMapping("/boards/{boardId}/tasks")

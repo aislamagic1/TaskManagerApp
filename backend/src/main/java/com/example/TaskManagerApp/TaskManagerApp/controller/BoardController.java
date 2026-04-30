@@ -3,6 +3,7 @@ package com.example.TaskManagerApp.TaskManagerApp.controller;
 import com.example.TaskManagerApp.TaskManagerApp.model.Board;
 import com.example.TaskManagerApp.TaskManagerApp.service.BoardService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,19 +18,21 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/users/{id}/boards")
-    public List<Board> getBoardsForUser(@PathVariable int id){
-        return boardService.getBoardsForUser(id);
+    @GetMapping("/boards")
+    public List<Board> getBoardsForUser(Authentication authentication){
+        String username = authentication.getName();
+        return boardService.getBoardsForUser(username);
     }
 
-    @PostMapping("/users/{id}/boards")
-    public void addBoardForUser(@PathVariable int id, @Valid @RequestBody Board board){
-        boardService.addBoardForUser(id, board);
+    @PostMapping("/boards")
+    public void addBoardForUser(Authentication authentication, @Valid @RequestBody Board board){
+        String username = authentication.getName();
+        boardService.addBoardForUser(username, board);
     }
 
-    @GetMapping("/boards/{id}/members")
-    public List<BoardService.MemberResponse> getAllMembersForBoard(@PathVariable int id){
-        return boardService.getAllMembersForBoard(id);
+    @GetMapping("/boards/{boardId}/members")
+    public List<BoardService.MemberResponse> getAllMembersForBoard(@PathVariable int boardId){
+        return boardService.getAllMembersForBoard(boardId);
     }
 
     @PostMapping("/boards/{boardId}/members")

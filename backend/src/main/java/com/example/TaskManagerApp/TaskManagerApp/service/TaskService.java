@@ -37,8 +37,8 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public List<Task> getAllTasksForUser(int userId){
-        User user = userService.findUserById(userId);
+    public List<Task> getAllTasksForUser(String username){
+        User user = userService.getUserRepository().findByUsername(username);
 
         return user.getTasks();
     }
