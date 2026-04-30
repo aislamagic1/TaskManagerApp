@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
@@ -14,7 +13,6 @@ function Header() {
         localStorage.removeItem("token");
         navigate("/");
     }
-
 
     return(
         <header className="header">
