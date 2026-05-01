@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getBoardsForUser } from "../api/boardApi";
 import "./Sidebar.css"
 import CreateBoardModal from "./CreateBoardModal";
@@ -6,6 +7,8 @@ import CreateBoardModal from "./CreateBoardModal";
 function SideBar(){
     const [boards, setBoards] = useState([]);
     const [showCreateBoardModal, setShowCreateBoardModal] = useState(false);
+
+    const naviagate = useNavigate();
 
     async function fetchBoards(){
         try {
@@ -37,7 +40,9 @@ function SideBar(){
             (
                 <ul className="nav-menu">
                     {boards.map((board) => (
-                        <li key={board.id}>
+                        <li key={board.id}
+                            onClick={() => naviagate(`/home/boards/${board.id}`)}
+                            style={{ cursor: "pointer" }}>
                             <p>{board.description}</p>
                         </li>
                     ))}

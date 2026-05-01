@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route element={<PrivateRoutes />}>
             <Route path="/home" element={<HomeComponent />} />
+            <Route path="/home/boards/:boardId" element={<HomeComponent />} />
           </Route>
           <Route path="/" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />

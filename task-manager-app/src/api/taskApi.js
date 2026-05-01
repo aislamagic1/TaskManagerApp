@@ -12,8 +12,8 @@ export const getAllTasksForUser = async(userId) => {
     return await apiClient.get(`/users/${userId}/tasks`);
 };
 
-export const getAllTasksForBoard = async(taskId) => {
-    return await apiClient.get(`/tasks/${taskId}`);
+export const getAllTasksForBoard = async(boardId) => {
+    return await apiClient.get(`/boards/${boardId}/tasks`);
 };
 
 export const deleteTaskById = async(taskId) => {

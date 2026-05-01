@@ -1,8 +1,13 @@
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { useParams } from "react-router-dom";
+import TaskComponent from "./TaskComponent";
 
 
 function HomeComponent() {
+
+    const { boardId } = useParams();
+
     return(
         <div>
             <Header />
@@ -10,7 +15,11 @@ function HomeComponent() {
                 <Sidebar />
 
                 <div style={{ flex: 1, padding: "1rem" }}>
-                    <h1>Main Content</h1>
+                    {!boardId ? (
+                        <h1>Select a board</h1>
+                    ):(
+                        <TaskComponent boardId={boardId} />
+                    )}
                 </div>
             </div>
         </div>
