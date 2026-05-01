@@ -1,21 +1,33 @@
 import { useState, useEffect } from "react";
 import { getBoardsForUser } from "../api/boardApi";
 import "./Sidebar.css"
+import CreateBoardModal from "./CreateBoardModal";
 
 function SideBar(){
     const [boards, setBoards] = useState([]);
+    const [showCreateBoardModal, setShowCreateBoardModal] = useState(false);
 
-    useEffect(() =>{
-        async function fetchBoards(){
+    async function fetchBoards(){
+        try {
             const response = await getBoardsForUser();
             setBoards(response.data);
+        } catch (error) {
+            console.log(error);
         }
-        
+    }
+
+    useEffect(() =>{
         fetchBoards();
     }, []);
 
     return(
         <nav className="sidebar">
+
+            <button className="create-board-btn" 
+                    onClick={() => setShowCreateBoardModal(true)}>
+                Create new Board
+            </button>
+
             <h3>Your boards</h3>
 
             {boards.length === 0 ? (
@@ -32,6 +44,12 @@ function SideBar(){
                 </ul>
             )}
 
+            {showCreateBoardModal && (
+                <CreateBoardModal
+                    onClose={() => setShowCreateBoardModal(false)}
+                    onCreated={fetchBoards}
+                />
+            )}
         </nav>
     )
 }
