@@ -31,7 +31,7 @@ public class TaskService {
 
         task.setBoard(board);
         task.setUser(creator);
-        task.setStatus(TaskStatus.IN_PROGRESS);
+        task.setStatus(TaskStatus.TODO);
         task.setCreator(creator.getUsername());
 
         taskRepository.save(task);
