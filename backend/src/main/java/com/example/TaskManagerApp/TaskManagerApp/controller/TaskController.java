@@ -19,8 +19,9 @@ public class TaskController {
     }
 
     @PostMapping("/boards/{boardId}/tasks")
-    public void createTask(@PathVariable int boardId, @RequestParam int userId, @RequestBody Task task){
-        taskService.createTask(boardId, userId, task);
+    public void createTask(@PathVariable int boardId, Authentication authentication, @RequestBody Task task){
+        String username = authentication.getName();
+        taskService.createTask(boardId, username, task);
     }
 
     @GetMapping("/tasks")

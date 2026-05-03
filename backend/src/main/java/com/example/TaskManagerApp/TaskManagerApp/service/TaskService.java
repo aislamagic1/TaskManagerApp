@@ -25,9 +25,9 @@ public class TaskService {
         this.userService = userService;
     }
 
-    public void createTask(int boardId, int userId, Task task){
+    public void createTask(int boardId, String username, Task task){
         Board board = boardService.findBoardById(boardId);
-        User creator = userService.findUserById(userId);
+        User creator = userService.getUserRepository().findByUsername(username);
 
         task.setBoard(board);
         task.setUser(creator);
