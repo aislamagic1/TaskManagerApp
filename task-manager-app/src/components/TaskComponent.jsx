@@ -2,12 +2,18 @@ import { useState, useEffect, useCallback } from "react";
 import { getAllTasksForBoard } from "../api/taskApi";
 import "./TaskComponent.css"
 import CreateTaskModal from "./CreateTaskModal";
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { changeTaskStatusById } from "../api/taskApi";
 
 
 function TaskComponent({ boardId }){
 
     const [tasks, setTasks] = useState([]);
-    const [filteredTasks, setFilteredTasks] = useState({});
+    const taskStatus = {
+        TODO: "To Do",
+        IN_PROGRESS: "In Progress",
+        DONE: "Done"
+    };
 
     const [showNewTaskModal, setShowNewTaskModal] = useState(false);
 
@@ -16,11 +22,6 @@ function TaskComponent({ boardId }){
         try {
             const response = await getAllTasksForBoard(boardId);
             setTasks(response.data);   
-            setFilteredTasks({
-                TODO: response.data.filter(t => t.status === "TODO"),
-                IN_PROGRESS: response.data.filter(t => t.status === "IN_PROGRESS"),
-                DONE: response.data.filter(t => t.status === "DONE")
-            });
         } catch (error) {
             console.log(error);
         }
@@ -32,6 +33,32 @@ function TaskComponent({ boardId }){
         fetchTasks();
     }, [fetchTasks, boardId]);
 
+    async function handleDragEnd(result) {
+        const { source, destination, draggableId } = result;
+
+        if(!destination) return;
+
+        const sourceStatus = source.droppableId;
+        const destStatus = destination.droppableId;
+
+        if (sourceStatus === destStatus) return;
+
+        try {
+            await changeTaskStatusById(draggableId, destStatus);
+
+            setTasks(prev =>
+                prev.map(task =>
+                    task.id === Number(draggableId)
+                        ? { ...task, status: destStatus }
+                        : task
+                )
+            );
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
     return(
         <div>
             <h3>Tasks</h3>
@@ -39,21 +66,46 @@ function TaskComponent({ boardId }){
             {tasks.length === 0 ? (
                 <p className="no-tasks-msg">No tasks. Create a new task to get started</p>
             ): (
-                <div className="task-board">
-                    {Object.entries(filteredTasks).map(([status, tasks]) => (
-                        <div className="column" key={status}>
-                            <h3>{status.replace("_", " ")}</h3>
+                <DragDropContext onDragEnd={handleDragEnd}>
+                    <div className="task-board">
+                        {Object.entries(taskStatus).map(([status, title]) => (
 
-                            {tasks.map((task) => (
-                                <div className="task-card" key={task.id}>
-                                    <strong>{task.title}</strong>
-                                    <p>{task.description}</p>
-                                    <p>{task.creator}</p>
-                                </div>
-                            ))}
-                        </div>
-                    ))}
-                </div>
+                            <Droppable droppableId={status} key={status}>
+                                {(provided) => (
+                                    <div className="column" 
+                                        ref={provided.innerRef}
+                                        {...provided.droppableProps}>
+                                            <h3>{title}</h3>
+
+                                        {tasks
+                                            .filter(task => task.status === status)
+                                            .map((task, index) => (
+                                                <Draggable 
+                                                    key={task.id}
+                                                    draggableId={task.id.toString()}
+                                                    index={index}
+                                                >
+                                                    {(provided) => (
+                                                        <div 
+                                                            className="task-card"
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                        >
+                                                            <strong>{task.title}</strong>
+                                                            <p>{task.description}</p>
+                                                            <p>{task.creator}</p>
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        ))}
+                    </div>
+                </DragDropContext>
             )}
             <button className="create-task-btn"
                     onClick={() => setShowNewTaskModal(true)}>

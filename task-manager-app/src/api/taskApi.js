@@ -17,5 +17,11 @@ export const deleteTaskById = async(taskId) => {
 };
 
 export const changeTaskStatusById = async(taskId, taskStatus) => {
-    return await apiClient.put(`/tasks/${taskId}/status`, taskStatus);
+    return await apiClient.patch(`/tasks/${taskId}/status`, taskStatus,
+        {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+    );
 };
