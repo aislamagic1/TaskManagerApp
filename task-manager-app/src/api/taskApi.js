@@ -1,11 +1,7 @@
 import apiClient from "./apiClient";
 
-export const createTask = async(boardId, userId, task) => {
-    return await apiClient.post(`/boards/${boardId}/tasks`, task, {
-        params: {
-            userId: userId
-        }
-    });
+export const createTask = async(boardId, task) => {
+    return await apiClient.post(`/boards/${boardId}/tasks`, task);
 };
 
 export const getAllTasksForUser = async(userId) => {

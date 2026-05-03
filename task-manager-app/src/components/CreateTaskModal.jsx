@@ -1,23 +1,27 @@
 import { useState } from "react";
-import { addBoardForUser } from "../api/boardApi";
+import { createTask } from "../api/taskApi";
 import "./CreateModal.css"
 
-function CreateBoardModal({ onClose, onCreated }){
-    const [boardName, setBoardName] = useState("");
+function CreateTaskModal( {boardId, onClose, onCreated} ) {
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+
     const [error, setError] = useState("");
 
-    async function handleCreateBoard(){
-        setError("");
+    async function handleCreateTask(){
+        setError(false);
 
-        if(!boardName){
+        if(!title || !description){
             setError("All fields are required");
             return;
         }
 
         try {
-            await addBoardForUser({
-                description: boardName
-            });
+            await createTask(boardId, {
+                title: title,
+                description: description
+            })
 
             onClose();
             onCreated();
@@ -29,20 +33,27 @@ function CreateBoardModal({ onClose, onCreated }){
     return(
         <div className="modal" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <h3>Create new Board</h3>
+                <h3>Create new Task</h3>
 
                 {error && <p className="error">{error}</p>}
 
                 <input 
                     type="text"
-                    placeholder="Board name"
-                    value={boardName} 
-                    onChange={(e) => setBoardName(e.target.value)}
+                    placeholder="Task name"
+                    value={title} 
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+
+                <input 
+                    type="text"
+                    placeholder="Decription of task"
+                    value={description} 
+                    onChange={(e) => setDescription(e.target.value)}
                 />
 
                 <div className="modal-buttons">
                     <button className="create-btn" 
-                            onClick={handleCreateBoard}>
+                            onClick={handleCreateTask}>
                         Submit
                     </button>
                     <button className="cancel-btn" 
@@ -56,4 +67,4 @@ function CreateBoardModal({ onClose, onCreated }){
     )
 }
 
-export default CreateBoardModal;
+export default CreateTaskModal;

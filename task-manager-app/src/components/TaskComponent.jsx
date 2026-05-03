@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getAllTasksForBoard } from "../api/taskApi";
 import "./TaskComponent.css"
+import CreateTaskModal from "./CreateTaskModal";
 
 
 function TaskComponent({ boardId }){
@@ -8,26 +9,28 @@ function TaskComponent({ boardId }){
     const [tasks, setTasks] = useState([]);
     const [filteredTasks, setFilteredTasks] = useState({});
 
+    const [showNewTaskModal, setShowNewTaskModal] = useState(false);
+
+
+    const fetchTasks = useCallback(async () => {
+        try {
+            const response = await getAllTasksForBoard(boardId);
+            setTasks(response.data);   
+            setFilteredTasks({
+                TODO: response.data.filter(t => t.status === "TODO"),
+                IN_PROGRESS: response.data.filter(t => t.status === "IN_PROGRESS"),
+                DONE: response.data.filter(t => t.status === "DONE")
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }, [boardId]);
+
     useEffect(() =>{
         if(!boardId) return;
 
-        async function fetchTasks(){
-
-            try {
-                const response = await getAllTasksForBoard(boardId);
-                setTasks(response.data);   
-                setFilteredTasks({
-                    TODO: response.data.filter(t => t.status === "TODO"),
-                    IN_PROGRESS: response.data.filter(t => t.status === "IN_PROGRESS"),
-                    DONE: response.data.filter(t => t.status === "DONE")
-                });
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
         fetchTasks();
-    }, [boardId]);
+    }, [fetchTasks, boardId]);
 
     return(
         <div>
@@ -52,6 +55,19 @@ function TaskComponent({ boardId }){
                     ))}
                 </div>
             )}
+            <button className="create-task-btn"
+                    onClick={() => setShowNewTaskModal(true)}>
+                        New Task
+            </button>
+
+            {showNewTaskModal && (
+                <CreateTaskModal 
+                    boardId={boardId}
+                    onClose={() => setShowNewTaskModal(false)}
+                    onCreated={fetchTasks}
+                />
+            )}
+
         </div>
     )
 }
