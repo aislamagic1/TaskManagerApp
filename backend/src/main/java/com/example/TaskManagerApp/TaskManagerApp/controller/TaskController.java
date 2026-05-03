@@ -45,4 +45,9 @@ public class TaskController {
         taskService.changeTaskStatusById(taskId, taskStatus);
     }
 
+    @PatchMapping("/tasks/{taskId}")
+    public void updateTask(@PathVariable int taskId, @RequestBody Task task){
+        taskService.updateTask(taskId, task);
+    }
+
 }

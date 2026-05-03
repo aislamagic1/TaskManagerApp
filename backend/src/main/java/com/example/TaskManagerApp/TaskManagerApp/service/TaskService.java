@@ -61,4 +61,22 @@ public class TaskService {
         taskRepository.save(task);
     }
 
+    public void updateTask(int taskId, Task task){
+        Task taskUpdate = taskRepository.findById(taskId)
+                .orElseThrow(() -> new ObjectNotFoundException("Task not found"));
+        if(task.getTitle() != null){
+            taskUpdate.setTitle(task.getTitle());
+        }
+
+        if(task.getDescription() != null){
+            taskUpdate.setDescription(task.getDescription());
+        }
+
+        if(task.getStatus() != null){
+            taskUpdate.setStatus(task.getStatus());
+        }
+
+        taskRepository.save(taskUpdate);
+    }
+
 }
