@@ -4,6 +4,7 @@ import "./TaskComponent.css"
 import CreateTaskModal from "./CreateTaskModal";
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { changeTaskStatusById } from "../api/taskApi";
+import EditTaskModal from "./EditTaskModal";
 
 
 function TaskComponent({ boardId }){
@@ -16,6 +17,9 @@ function TaskComponent({ boardId }){
     };
 
     const [showNewTaskModal, setShowNewTaskModal] = useState(false);
+    const [showEditTaskModal, setEditTaskModal] = useState(false);
+
+    const [taskUpdate, setTaskUpdate] = useState({});
 
 
     const fetchTasks = useCallback(async () => {
@@ -95,6 +99,13 @@ function TaskComponent({ boardId }){
                                                             <strong>{task.title}</strong>
                                                             <p>{task.description}</p>
                                                             <p>{task.creator}</p>
+                                                            <button className="task-btn"
+                                                                    onClick={() => {
+                                                                        setEditTaskModal(true);
+                                                                        setTaskUpdate(task);
+                                                                    }}>
+                                                                        Edit
+                                                            </button>
                                                         </div>
                                                     )}
                                                 </Draggable>
@@ -107,7 +118,7 @@ function TaskComponent({ boardId }){
                     </div>
                 </DragDropContext>
             )}
-            <button className="create-task-btn"
+            <button className="task-btn"
                     onClick={() => setShowNewTaskModal(true)}>
                         New Task
             </button>
@@ -116,6 +127,14 @@ function TaskComponent({ boardId }){
                 <CreateTaskModal 
                     boardId={boardId}
                     onClose={() => setShowNewTaskModal(false)}
+                    onCreated={fetchTasks}
+                />
+            )}
+
+            {showEditTaskModal && (
+                <EditTaskModal 
+                    task={taskUpdate}
+                    onClose={() => setEditTaskModal(false)}
                     onCreated={fetchTasks}
                 />
             )}

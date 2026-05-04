@@ -25,3 +25,7 @@ export const changeTaskStatusById = async(taskId, taskStatus) => {
         }
     );
 };
+
+export const updateTask = async(taskId, task) => {
+    return await apiClient.patch(`/tasks/${taskId}`, task);
+};
