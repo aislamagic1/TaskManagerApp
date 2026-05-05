@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import { getAllTasksForBoard } from "../api/taskApi";
+import { getAllTasksForBoard, changeTaskStatusById } from "../api/taskApi";
 import "./TaskComponent.css"
 import CreateTaskModal from "./CreateTaskModal";
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { changeTaskStatusById } from "../api/taskApi";
 import EditTaskModal from "./EditTaskModal";
 
 
@@ -20,7 +19,6 @@ function TaskComponent({ boardId }){
     const [showEditTaskModal, setEditTaskModal] = useState(false);
 
     const [taskUpdate, setTaskUpdate] = useState({});
-
 
     const fetchTasks = useCallback(async () => {
         try {

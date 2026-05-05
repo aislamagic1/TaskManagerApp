@@ -9,8 +9,8 @@ export const addBoardForUser = async(board) => {
     return undefined;
 };
 
-export const getAllMembersForBoard = async(id) => {
-    return await apiClient.get(`/boards/${id}/members`);
+export const getAllMembersForBoard = async(boardId) => {
+    return await apiClient.get(`/boards/${boardId}/members`);
 };
 
 export const addMemberToBoard = async(boardId, userId) => {
