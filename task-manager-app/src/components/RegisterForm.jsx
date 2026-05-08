@@ -25,7 +25,7 @@ function RegisterForm() {
             return;
         }
 
-        if (validateEmail.test(String(email).toLowerCase)){
+        if (!validateEmail.test(String(email).toLowerCase())){
             setError("Invalid email address!");
             return;
         }
@@ -45,13 +45,13 @@ function RegisterForm() {
     return(
         <div className="auth-container">
             <div className="auth-card">
-                <h1>Register a new account</h1>
+                <h1>Register New Account</h1>
 
                 {error && <p className="error">{error}</p>}
                 {success && <p style={{ color: "green" }}>{success}</p>}
 
                 <div className="auth-form">
-                    <label>Username</label>
+                    <label>Username:</label>
                     <input 
                         type="text"
                         name="username" 
@@ -62,7 +62,7 @@ function RegisterForm() {
                 </div>
 
                 <div className="auth-form">
-                    <label>Email</label>
+                    <label>Email:</label>
                     <input type="text" 
                         name="email" 
                         value={email} 
@@ -72,7 +72,7 @@ function RegisterForm() {
                 </div>
 
                 <div className="auth-form">
-                    <label>Password</label>
+                    <label>Password:</label>
                     <input type="password" 
                         name="password" 
                         value={password} 

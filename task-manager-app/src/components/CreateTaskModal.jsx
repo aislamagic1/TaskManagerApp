@@ -37,19 +37,23 @@ function CreateTaskModal( {boardId, onClose, onCreated} ) {
 
                 {error && <p className="error">{error}</p>}
 
-                <input 
-                    type="text"
-                    placeholder="Task name"
-                    value={title} 
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+                <div className="form-group">
+                    <label >Enter task name:</label>
+                    <input 
+                        type="text"
+                        placeholder="Task name"
+                        value={title} 
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
 
-                <input 
-                    type="text"
-                    placeholder="Decription of task"
-                    value={description} 
-                    onChange={(e) => setDescription(e.target.value)}
-                />
+                    <label >Enter task description:</label>
+                    <input 
+                        type="text"
+                        placeholder="Decription of task"
+                        value={description} 
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </div>
 
                 <div className="modal-buttons">
                     <button className="create-btn" 

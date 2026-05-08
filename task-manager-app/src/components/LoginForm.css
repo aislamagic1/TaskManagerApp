@@ -12,22 +12,29 @@
     border-radius: 12px;
     width: 350px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.lauth-card h1 {
+.auth-card h1 {
     margin-bottom: 1.5rem;
 }
 
 .auth-form {
-    text-align: left;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 1rem;
 }
 
 .auth-form label {
+    width: 100%;
     font-size: 0.9rem;
-    display: block;
     margin-bottom: 0.3rem;
+    text-align: left;
 }
 
 .auth-form input {
@@ -36,6 +43,7 @@
     border-radius: 6px;
     border: 1px solid #ccc;
     transition: 0.2s;
+    box-sizing: border-box;
 }
 
 .auth-form input:focus {
@@ -55,13 +63,14 @@
     transition: 0.2s;
 }
 
-.login-button:hover {
+.auth-button:hover {
     background: #4338ca;
 }
 
 .register-text {
     margin-top: 1rem;
     font-size: 0.9rem;
+    text-align: center;
 }
 
 .register-text span {

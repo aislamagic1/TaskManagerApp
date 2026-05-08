@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { getAllMembersForBoard } from "../api/boardApi";
 import AddMemeberModal from "./AddMemberModal";
+import "./BoardMembers.css";
 
 function BoardMembers({ boardId }) {
 
@@ -23,16 +24,36 @@ function BoardMembers({ boardId }) {
     }, [fetchBoardMembers, boardId]);
 
     return(
-        <div className="board-mebmers">
-            <p>Board members:</p>
-                {boardMembers.map((member) => (
-                    <p key={member.username}>{member.username}</p>
-                ))}
-            <button className="task-btn"
-                onClick={() => setShowAddMemberModal(true)}>
-                Add member
-            </button>
-            
+        <div className="board-members-container">
+
+            <div className="board-members-header">
+                <h3>Board Members</h3>
+
+                <button
+                    className="add-member-btn"
+                    onClick={() => setShowAddMemberModal(true)}
+                >
+                    + Add Member
+                </button>
+            </div>
+
+            <div className="members-list">
+                {boardMembers.length === 0 ? (
+                    <p className="no-members">
+                        No members
+                    </p>
+                ) : (
+                    boardMembers.map((member) => (
+                        <div
+                            key={member.username}
+                            className="member-card"
+                        >
+                            {member.username}
+                        </div>
+                    ))
+                )}
+            </div>
+
             {showAddMemberModal && (
                 <AddMemeberModal 
                     boardId={boardId}
@@ -42,7 +63,7 @@ function BoardMembers({ boardId }) {
             )}
 
         </div>
-    )
+    )   
 }
 
 export default BoardMembers;

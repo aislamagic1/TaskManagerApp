@@ -50,25 +50,30 @@ function EditTaskModal( {task, onClose, onCreated} ) {
 
                 {error && <p className="error">{error}</p>}
 
-                <input 
-                    type="text"
-                    placeholder={title}
-                    value={title} 
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+                <div className="form-group">
+                    <label>Title:</label>
+                    <input 
+                        type="text"
+                        placeholder={title}
+                        value={title} 
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
 
-                <input 
-                    type="text"
-                    placeholder={description}
-                    value={description} 
-                    onChange={(e) => setDescription(e.target.value)}
-                />
+                    <label>Description:</label>
+                    <input 
+                        type="text"
+                        placeholder={description}
+                        value={description} 
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
 
-                <select value={status} onChange={(e) => setStatus(e.target.value)}>
-                    <option value="TODO">To Do</option>
-                    <option value="IN_PROGRESS">In Progress</option>
-                    <option value="DONE">Done</option>
-                </select>
+                    <label>Status:</label>
+                    <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                        <option value="TODO">To Do</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="DONE">Done</option>
+                    </select>
+                </div>
 
                 <div className="modal-buttons">
                     <button className="create-btn" 

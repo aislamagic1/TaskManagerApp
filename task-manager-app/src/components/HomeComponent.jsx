@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import { useParams } from "react-router-dom";
 import TaskComponent from "./TaskComponent";
 import BoardMembers from "./BoardMembers";
+import "./HomeComponent.css"
 
 
 function HomeComponent() {
@@ -17,7 +18,9 @@ function HomeComponent() {
 
                 <div style={{ flex: 1, padding: "1rem" }}>
                     {!boardId ? (
-                        <h1>Select a board</h1>
+                        <div className="empty-board-message">
+                            <h1>Select or Create a New Board</h1>
+                        </div>
                     ):(       
                         <div>
                             <TaskComponent boardId={boardId} />

@@ -33,12 +33,15 @@ function CreateBoardModal({ onClose, onCreated }){
 
                 {error && <p className="error">{error}</p>}
 
-                <input 
-                    type="text"
-                    placeholder="Board name"
-                    value={boardName} 
-                    onChange={(e) => setBoardName(e.target.value)}
-                />
+                <div className="form-group">
+                    <label>Enter board name:</label>
+                    <input 
+                        type="text"
+                        placeholder="Board name"
+                        value={boardName} 
+                        onChange={(e) => setBoardName(e.target.value)}
+                    />
+                </div>
 
                 <div className="modal-buttons">
                     <button className="create-btn" 

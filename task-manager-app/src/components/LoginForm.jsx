@@ -30,7 +30,7 @@ function LoginForm(){
                 {error && <p className="error">{error}</p>}
 
                 <div className="auth-form">
-                    <label>Username</label>
+                    <label>Username:</label>
                     <input 
                         type="text"
                         name="username" 
@@ -41,7 +41,7 @@ function LoginForm(){
                 </div>
 
                 <div className="auth-form">
-                    <label>Password</label>
+                    <label>Password:</label>
                     <input type="password" 
                         name="password" 
                         value={password} 

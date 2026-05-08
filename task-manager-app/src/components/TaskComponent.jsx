@@ -62,11 +62,21 @@ function TaskComponent({ boardId }){
     }
 
     return(
-        <div>
-            <h3>Tasks</h3>
+        <div className="tasks-container">
+            <div className="tasks-header">
+                <h2>Tasks</h2>
+
+                <button className="new-task-btn"
+                    onClick={() => setShowNewTaskModal(true)}>
+                        New Task
+                </button>
+            </div>
 
             {tasks.length === 0 ? (
-                <p className="no-tasks-msg">No tasks. Create a new task to get started</p>
+                <div className="no-task-msg">
+                    <p>No tasks</p>
+                    <span>Create a task to get started</span>
+                </div>
             ): (
                 <DragDropContext onDragEnd={handleDragEnd}>
                     <div className="task-board">
@@ -77,7 +87,16 @@ function TaskComponent({ boardId }){
                                     <div className="column" 
                                         ref={provided.innerRef}
                                         {...provided.droppableProps}>
-                                            <h3>{title}</h3>
+
+                                            <div className="column-header">
+                                                <h3>{title}</h3>
+
+                                                <span className="task-count">
+                                                {
+                                                    tasks.filter(task => task.status === status).length
+                                                }
+                                                </span>
+                                            </div>
 
                                         {tasks
                                             .filter(task => task.status === status)
@@ -94,16 +113,29 @@ function TaskComponent({ boardId }){
                                                             {...provided.draggableProps}
                                                             {...provided.dragHandleProps}
                                                         >
-                                                            <strong>{task.title}</strong>
-                                                            <p>{task.description}</p>
-                                                            <p>{task.creator}</p>
-                                                            <button className="task-btn"
+                                                            <div className="task-card-title">
+                                                                <span className="task-label">Title</span>
+                                                                <h4>{task.title}</h4>
+                                                            </div>
+
+                                                            <div className="task-card-description">
+                                                                <span className="task-label">Decription</span>
+                                                                <p>{task.description}</p>
+                                                            </div>
+                                                            
+                                                            <div className="task-card-footer">
+                                                                <span className="task-creator">
+                                                                    <span className="task-label">Creator</span>
+                                                                    <p>{task.creator}</p>
+                                                                </span>
+                                                                <button className="edit-task-btn"
                                                                     onClick={() => {
                                                                         setEditTaskModal(true);
                                                                         setTaskUpdate(task);
                                                                     }}>
                                                                         Edit
-                                                            </button>
+                                                                </button>
+                                                            </div> 
                                                         </div>
                                                     )}
                                                 </Draggable>
@@ -116,10 +148,6 @@ function TaskComponent({ boardId }){
                     </div>
                 </DragDropContext>
             )}
-            <button className="task-btn"
-                    onClick={() => setShowNewTaskModal(true)}>
-                        New Task
-            </button>
 
             {showNewTaskModal && (
                 <CreateTaskModal 
