@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { getAllMembersForBoard } from "../api/boardApi";
+import AddMemeberModal from "./AddMemberModal";
 
 function BoardMembers({ boardId }) {
 
@@ -33,24 +34,11 @@ function BoardMembers({ boardId }) {
             </button>
             
             {showAddMemberModal && (
-                <div className="modal" >
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h3>Add member to board</h3>
-
-                        
-
-                    <div className="modal-buttons">
-                        <button className="create-btn" 
-                            >
-                            Add Member
-                        </button>
-                        <button className="cancel-btn" 
-                                >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            </div>
+                <AddMemeberModal 
+                    boardId={boardId}
+                    onClose={() => setShowAddMemberModal(false)}
+                    onCreated={fetchBoardMembers}    
+                />
             )}
 
         </div>

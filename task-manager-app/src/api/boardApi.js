@@ -14,7 +14,7 @@ export const getAllMembersForBoard = async(boardId) => {
 };
 
 export const addMemberToBoard = async(boardId, userId) => {
-    await apiClient.post(`/boards/${boardId}/members`, {
+    await apiClient.post(`/boards/${boardId}/members`, null, {
         params: {
             userId: userId
         }
