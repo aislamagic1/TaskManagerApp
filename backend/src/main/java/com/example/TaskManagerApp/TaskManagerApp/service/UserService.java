@@ -46,8 +46,8 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public User getUserByUsername(String username){
-        return userRepository.findByUsername(username);
+    public List<User> searchUsers(String username){
+        return userRepository.findByUsernameStartingWithIgnoreCase(username);
     }
 
 }
