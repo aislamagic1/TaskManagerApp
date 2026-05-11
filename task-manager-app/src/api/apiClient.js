@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: "http://localhost:8080/api"
+    //baseURL: "http://localhost:8080/api"
+    baseURL: "http://taskmanagerapp-env.eba-agrebdxr.eu-central-1.elasticbeanstalk.com/api"
 });
 
 apiClient.interceptors.request.use(

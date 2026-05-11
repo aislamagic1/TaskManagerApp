@@ -19,10 +19,6 @@ function Header() {
             <h2 className="logo">Task Manager</h2>
 
             <div className="header-actions">
-                <button className="account-btn" onClick={handleViewAccount}>
-                    Account Details
-                </button>
-
                 <button className="logout-btn" onClick={handleLogout}>
                     Logout
                 </button>
