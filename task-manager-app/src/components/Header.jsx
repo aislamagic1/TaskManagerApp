@@ -5,9 +5,6 @@ function Header() {
 
     const navigate = useNavigate();
 
-    function handleViewAccount(){
-        navigate("/account-details");
-    }
 
     function handleLogout(){
         localStorage.removeItem("token");

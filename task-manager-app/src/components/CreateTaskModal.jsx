@@ -47,11 +47,11 @@ function CreateTaskModal( {boardId, onClose, onCreated} ) {
                     />
 
                     <label >Enter task description:</label>
-                    <input 
-                        type="text"
-                        placeholder="Decription of task"
-                        value={description} 
+                    <textarea
+                        placeholder="Description of task"
+                        value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        rows={5}
                     />
                 </div>
 

@@ -119,8 +119,8 @@ function TaskComponent({ boardId }){
                                                             </div>
 
                                                             <div className="task-card-description">
-                                                                <span className="task-label">Decription</span>
-                                                                <p>{task.description}</p>
+                                                                    <span className="task-label">Description</span>
+                                                                    <div className="task-text">{task.description}</div>
                                                             </div>
                                                             
                                                             <div className="task-card-footer">

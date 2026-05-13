@@ -60,11 +60,11 @@ function EditTaskModal( {task, onClose, onCreated} ) {
                     />
 
                     <label>Description:</label>
-                    <input 
-                        type="text"
-                        placeholder={description}
-                        value={description} 
+                    <textarea
+                        placeholder="Description of task"
+                        value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        rows={5}
                     />
 
                     <label>Status:</label>

@@ -111,3 +111,20 @@
     font-size: 0.85rem;
     margin-bottom: 1rem;
 }
+
+.modal-content textarea {
+    padding: 0.7rem;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    outline: none;
+    resize: vertical;
+    min-height: 120px;
+    transition: border 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+}
+
+.modal-content textarea:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}

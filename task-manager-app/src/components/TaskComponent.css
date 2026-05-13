@@ -168,3 +168,13 @@
 .edit-task-btn:hover {
     background-color: #dbeafe;
 }
+
+
+.task-text {
+    font-size: 0.95rem;
+    color: #111827;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    max-height: 80px;
+    overflow: hidden;
+}
