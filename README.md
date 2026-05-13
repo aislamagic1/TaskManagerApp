@@ -33,10 +33,10 @@ Website endpoint: http://task-manager-app-v.0.2.s3-website.eu-central-1.amazonaw
   </tr>
   <tr>
     <td>
-      <img width="400" alt="new-task-modal" src="https://github.com/user-attachments/assets/ac1711cb-fa0f-4fa4-9080-3527133fb6be" />
+      <img width="400" alt="new-task-modal" src="https://github.com/user-attachments/assets/41d9552f-ae0e-4b12-9169-f1d16598ed70" />
     </td>
     <td>
-      <img width="400" alt="update-task-modal" src="https://github.com/user-attachments/assets/bc51a41b-08e8-457c-b909-950181adbda3" />
+      <img width="400" alt="udpate-task-modal" src="https://github.com/user-attachments/assets/46b2ef36-9543-4194-94a6-3c8d29868962" />
     </td>
   </tr>
 </table>
